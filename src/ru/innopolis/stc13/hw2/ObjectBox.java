@@ -1,25 +1,17 @@
 package ru.innopolis.stc13.hw2;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class ObjectBox<T> {
 
-    protected Set<T> set = new TreeSet<>();
+    protected Set<T> set = new HashSet<>();
 
     public ObjectBox() {
     }
 
     public ObjectBox(Set<T> set) {
-        this.set = set;
-    }
-
-    public ObjectBox(T[] array) throws BoxException {
-        Set<T> set = new TreeSet<>(Arrays.asList(array));
-        if (array.length != set.size()) {
-            throw new BoxException("duplicates in array");
-        }
         this.set = set;
     }
 
@@ -43,5 +35,18 @@ public class ObjectBox<T> {
 
     public String dump() {
         return set.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ObjectBox<?> objectBox = (ObjectBox<?>) o;
+        return Objects.equals(set, objectBox.set);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(set);
     }
 }

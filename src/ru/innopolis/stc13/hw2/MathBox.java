@@ -1,13 +1,15 @@
 package ru.innopolis.stc13.hw2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class MathBox extends ObjectBox<Number> {
 
     public MathBox(Number[] array) throws BoxException {
-        super(array);
+        Set<Number> set = new TreeSet<>(Arrays.asList(array));
+        if (array.length != set.size()) {
+            throw new BoxException("duplicates in array");
+        }
+        this.set = set;
     }
 
     public Double summator() {
