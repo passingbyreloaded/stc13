@@ -1,8 +1,9 @@
 package ru.innopolis.stc13.hw2;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class MathBox extends ObjectBox<Number> {
+public class MathBox extends ObjectBox<Number> implements Serializable {
 
     public MathBox(Number[] array) throws BoxException {
         Set<Number> set = new TreeSet<>(Arrays.asList(array));

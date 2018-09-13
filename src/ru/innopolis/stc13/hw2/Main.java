@@ -1,5 +1,7 @@
 package ru.innopolis.stc13.hw2;
 
+import java.io.*;
+
 public class Main {
     public static void main(String[] args) throws BoxException {
 //        Integer[] array = new Integer[]{50, 25, 1, 87, 69, 34};
@@ -17,5 +19,28 @@ public class Main {
         System.out.println(mathBox.dump());
         mathBox.deleteObject(2.2f);
         System.out.println(mathBox.dump());
+
+        String fileName = "d://file";
+
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            outputStream.writeObject(mathBox);
+            System.out.println(mathBox);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+            MathBox newMathBox = (MathBox) inputStream.readObject();
+            System.out.println(newMathBox);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
 }
