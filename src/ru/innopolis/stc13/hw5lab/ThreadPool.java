@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.hw5;
+package ru.innopolis.stc13.hw5lab;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -11,7 +11,14 @@ public class ThreadPool {
     public ThreadPool(int limit) {
         isWorking = true;
         for (int i = 0; i < limit; i++) {
-            new Thread(new TaskThread()).start();
+            new Thread(() -> {
+                while (isWorking) {
+                    Runnable nextTask = tasks.poll();
+                    if (nextTask != null) {
+                        nextTask.run();
+                    }
+                }
+            }).start();
         }
     }
 
@@ -29,15 +36,4 @@ public class ThreadPool {
         return tasks.isEmpty();
     }
 
-    private final class TaskThread implements Runnable {
-        @Override
-        public void run() {
-            while (isWorking) {
-                Runnable nextTask = tasks.poll();
-                if (nextTask != null) {
-                    nextTask.run();
-                }
-            }
-        }
-    }
 }

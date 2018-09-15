@@ -1,9 +1,10 @@
-package ru.innopolis.stc13.hw5;
+package ru.innopolis.stc13.hw5lab;
 
-public class Main {
+public class ThreadPoolTest {
 
     public static void main(String[] args) {
         ThreadPool pool = new ThreadPool(6);
+
         pool.startTask(() -> {
             System.out.println(Thread.currentThread().getName() + "task 1 completed");
             try {
