@@ -31,13 +31,6 @@ public class XmlSerializator {
     private XmlSerializator() {
     }
 
-    public static void main(String[] args) throws ParserConfigurationException, IllegalAccessException, TransformerException, ClassNotFoundException, SAXException, InstantiationException, IOException {
-
-        Cat cat = new Cat(5, "Tom", true);
-        serialize(cat, "xmltext.xml");
-        System.out.println(deserialize("xmltext.xml"));
-    }
-
     public static void serialize(Object object, String file) throws ParserConfigurationException, IllegalAccessException, TransformerException {
         File fileToWrite = new File(file);
         if (!fileToWrite.exists() || fileToWrite.isDirectory()) {
