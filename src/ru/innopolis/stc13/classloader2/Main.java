@@ -25,26 +25,27 @@ public class Main {
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         compiler.run(null, null, null, file.getAbsolutePath());
-        MonsterClassLoader loader = new MonsterClassLoader();
-        Class monsterClass = loader.loadClass("ru.innopolis.stc13.classloader2.Monster");
-//        Class monsterClass = new ClassLoader(){
-//            @Override
-//            public Class<?> loadClass(String name) throws ClassNotFoundException {
-//                byte[] classData = null;
-//                try (InputStream inputStream = new FileInputStream(new File("Monster.class"));
-//                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-//                    int data = inputStream.read();
-//                    while (data != -1) {
-//                        byteArrayOutputStream.write(data);
-//                        data = inputStream.read();
-//                    }
-//                    classData = byteArrayOutputStream.toByteArray();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                return defineClass(name, classData, 0, classData.length);
-//            }
-//        }.loadClass("ru.innopolis.stc13.classloader2.Monster");
+        Class monsterClass = new ClassLoader() {
+            @Override
+            public Class<?> loadClass(String name) throws ClassNotFoundException {
+                if (name.equals("ru.innopolis.stc13.classloader2.Monster")) {
+                    byte[] classData = null;
+                    try (InputStream inputStream = new FileInputStream(new File("Monster.class"));
+                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+                        int data = inputStream.read();
+                        while (data != -1) {
+                            byteArrayOutputStream.write(data);
+                            data = inputStream.read();
+                        }
+                        classData = byteArrayOutputStream.toByteArray();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return defineClass(name, classData, 0, classData.length);
+                }
+                return super.loadClass(name);
+            }
+        }.loadClass("ru.innopolis.stc13.classloader2.Monster");
         monsterClass.getMethod("doWork").invoke(monsterClass.newInstance());
     }
 }

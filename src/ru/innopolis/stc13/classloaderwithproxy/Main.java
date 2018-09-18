@@ -14,7 +14,7 @@ public class Main {
 //
 //        ClassLoader parentClassLoader = EuropeanHuman.class.getClassLoader();
 //        HumanClassLoader humanClassLoader = new HumanClassLoader(parentClassLoader);
-//
+
 //        Class europeanHumanClass = humanClassLoader.loadClass("ru.innopolis.stc13.classloaderwithproxy.EuropeanHuman");
 //        System.out.println(europeanHumanClass.getMethod("talk").invoke(europeanHumanClass.newInstance()));
 
