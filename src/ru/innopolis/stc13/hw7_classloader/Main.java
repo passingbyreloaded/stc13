@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.classloader2;
+package ru.innopolis.stc13.hw7_classloader;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
@@ -12,7 +12,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String line;
         StringBuilder builder = new StringBuilder();
-        builder.append("package ru.innopolis.stc13.classloader2; public class Monster { public void doWork(){");
+        builder.append("package ru.innopolis.stc13.hw7_classloader; public class Monster { public void doWork(){");
         while (!(line = reader.readLine()).equals("")) {
             builder.append(line);
         }
@@ -28,7 +28,7 @@ public class Main {
         Class monsterClass = new ClassLoader() {
             @Override
             public Class<?> loadClass(String name) throws ClassNotFoundException {
-                if (name.equals("ru.innopolis.stc13.classloader2.Monster")) {
+                if (name.equals("ru.innopolis.stc13.hw7_classloader.Monster")) {
                     byte[] classData = null;
                     try (InputStream inputStream = new FileInputStream(new File("Monster.class"));
                          ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
@@ -45,7 +45,7 @@ public class Main {
                 }
                 return super.loadClass(name);
             }
-        }.loadClass("ru.innopolis.stc13.classloader2.Monster");
+        }.loadClass("ru.innopolis.stc13.hw7_classloader.Monster");
         monsterClass.getMethod("doWork").invoke(monsterClass.newInstance());
     }
 }
