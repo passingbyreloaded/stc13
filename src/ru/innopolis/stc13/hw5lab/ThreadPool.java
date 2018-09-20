@@ -1,22 +1,30 @@
 package ru.innopolis.stc13.hw5lab;
 
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ThreadPool {
 
     private boolean isWorking;
     private Queue<Runnable> tasks = new ConcurrentLinkedQueue<>();
+    private List<Runnable> aliveThreads = new CopyOnWriteArrayList<>();
 
     public ThreadPool(int limit) {
         isWorking = true;
         for (int i = 0; i < limit; i++) {
-            new Thread(() -> {
-                while (isWorking) {
-                    Runnable nextTask = tasks.poll();
-                    if (nextTask != null) {
-                        nextTask.run();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    aliveThreads.add(this);
+                    while (isWorking) {
+                        Runnable nextTask = tasks.poll();
+                        if (nextTask != null) {
+                            nextTask.run();
+                        }
                     }
+                    aliveThreads.remove(this);
                 }
             }).start();
         }
@@ -32,8 +40,11 @@ public class ThreadPool {
         isWorking = false;
     }
 
-    public boolean allTasksDone() {
+    public boolean allTasksTaken() {
         return tasks.isEmpty();
     }
 
+    public boolean allTasksDone() {
+        return aliveThreads.isEmpty();
+    }
 }
