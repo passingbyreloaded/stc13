@@ -15,7 +15,7 @@ public class Delirium {
     private static Random random = new Random();
 
     public static void main(String[] args) {
-        genFiles("files", 10, 10, 40, 1, new String[]{"tttttttttttt", "aaaaaaaaaaaa", "lllllllllll", "uuuuuuuuuuu", "ddddddddddd", "mmmmmmmmmm"}, 3);
+        genFiles("files", 20, 10000, 40000, 1, new String[]{"tttttttttttt", "aaaaaaaaaaaa", "lllllllllll", "uuuuuuuuuuu", "ddddddddddd", "mmmmmmmmmm"}, 3);
     }
 
     public static void genFiles(String path, int n, int size1, int size2, int diff, String[] words, int probability) {
@@ -122,7 +122,7 @@ public class Delirium {
         return stringBuilder.toString();
     }
 
-    private static String genWord(int n) {
+    public static String genWord(int n) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < n; i++) {
             stringBuilder.append(letters.charAt(random.nextInt(letters.length())));

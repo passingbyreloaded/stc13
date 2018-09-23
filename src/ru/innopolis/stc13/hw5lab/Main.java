@@ -5,11 +5,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
 
         String[] sources = Arrays.stream(new File("files").listFiles()).map(File::getAbsolutePath).toArray(String[]::new);
         String[] words = new String[]{"tttttttttttt", "aaaaaaaaaaaa", "lllllllllll", "uuuuuuuuuuu", "ddddddddddd", "mmmmmmmmmm"};
@@ -81,6 +85,8 @@ public class Main {
         try (FileWriter writer = new FileWriter(resultFile, false)) {
             writer.write(result.toString());
         }
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
     private static boolean isFileOk(File file) {
