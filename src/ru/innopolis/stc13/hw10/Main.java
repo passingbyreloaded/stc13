@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.hw9;
+package ru.innopolis.stc13.hw10;
 
 import ru.innopolis.stc13.hw3.Delirium;
 

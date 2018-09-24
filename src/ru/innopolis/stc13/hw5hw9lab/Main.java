@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.hw5lab;
+package ru.innopolis.stc13.hw5hw9lab;
 
 import java.io.File;
 import java.io.FileWriter;
