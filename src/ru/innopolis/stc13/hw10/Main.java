@@ -30,19 +30,6 @@ public class Main {
             }
         }).start();
 
-//        new Thread(() -> {
-//            while (working.get()) {
-//                for (int i = 0; i < 40; i++) {
-//                    list.remove(random.nextInt(list.size()));
-//                }
-//                try {
-//                    Thread.sleep(700);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         working.set(false);
