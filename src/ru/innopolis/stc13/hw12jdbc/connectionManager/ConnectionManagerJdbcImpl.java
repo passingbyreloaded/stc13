@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.jdbcRealExample.connectionManager;
+package ru.innopolis.stc13.hw12jdbc.connectionManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

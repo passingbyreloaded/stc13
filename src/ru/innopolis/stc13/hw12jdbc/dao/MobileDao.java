@@ -1,6 +1,6 @@
-package ru.innopolis.stc13.jdbcRealExample.dao;
+package ru.innopolis.stc13.hw12jdbc.dao;
 
-import ru.innopolis.stc13.jdbcRealExample.pojo.Mobile;
+import ru.innopolis.stc13.hw12jdbc.pojo.Mobile;
 
 public interface MobileDao {
 

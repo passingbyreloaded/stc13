@@ -1,16 +1,16 @@
-package ru.innopolis.stc13.jdbcRealExample.pojo;
+package ru.innopolis.stc13.hw12jdbc.pojo;
 
 public class Mobile {
 
     private Integer id;
     private String model;
     private Float price;
-    private Integer manufacturer;
+    private Manufacturer manufacturer;
 
     public Mobile() {
     }
 
-    public Mobile(Integer id, String model, Float price, Integer manufacturer) {
+    public Mobile(Integer id, String model, Float price, Manufacturer manufacturer) {
         this.id = id;
         this.model = model;
         this.price = price;
@@ -41,11 +41,11 @@ public class Mobile {
         this.price = price;
     }
 
-    public Integer getManufacturer() {
+    public Manufacturer getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(Integer manufacturer) {
+    public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
 

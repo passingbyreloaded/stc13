@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.jdbcRealExample.pojo;
+package ru.innopolis.stc13.hw12jdbc.pojo;
 
 public class Manufacturer {
 

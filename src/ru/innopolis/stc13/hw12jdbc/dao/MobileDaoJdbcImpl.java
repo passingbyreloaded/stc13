@@ -1,17 +1,16 @@
-package ru.innopolis.stc13.jdbcRealExample.dao;
+package ru.innopolis.stc13.hw12jdbc.dao;
 
-import ru.innopolis.stc13.jdbcRealExample.connectionManager.ConnectionManager;
-import ru.innopolis.stc13.jdbcRealExample.connectionManager.ConnectionManagerJdbcImpl;
-import ru.innopolis.stc13.jdbcRealExample.pojo.Mobile;
+import ru.innopolis.stc13.hw12jdbc.connectionManager.ConnectionManager;
+import ru.innopolis.stc13.hw12jdbc.connectionManager.ConnectionManagerJdbcImpl;
+import ru.innopolis.stc13.hw12jdbc.pojo.Manufacturer;
+import ru.innopolis.stc13.hw12jdbc.pojo.Mobile;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MobileDaoJdbcImpl implements MobileDao {
 
     private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();
+    private static ManufacturerDao manufacturerDao = new ManufacturerDaoJdbcImpl();
 
     @Override
     public boolean add(Mobile mobile) {
@@ -19,7 +18,7 @@ public class MobileDaoJdbcImpl implements MobileDao {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO mobile VALUES (DEFAULT ,?,?,?)");
             preparedStatement.setString(1, mobile.getModel());
             preparedStatement.setFloat(2, mobile.getPrice());
-            preparedStatement.setInt(3, mobile.getManufacturer());
+            setParameterForManufacturer(preparedStatement, mobile.getManufacturer());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,7 +37,7 @@ public class MobileDaoJdbcImpl implements MobileDao {
                 Mobile mobile = new Mobile(resultSet.getInt("id"),
                         resultSet.getString("model"),
                         resultSet.getFloat("price"),
-                        resultSet.getInt("manufacturer"));
+                        manufacturerDao.getById(resultSet.getInt("manufacturer")));
                 return mobile;
             }
         } catch (SQLException e) {
@@ -53,7 +52,8 @@ public class MobileDaoJdbcImpl implements MobileDao {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE mobile SET model=?,price=?,manufacturer_id=? WHERE id =?");
             preparedStatement.setString(1, mobile.getModel());
             preparedStatement.setFloat(2, mobile.getPrice());
-            preparedStatement.setInt(3, mobile.getManufacturer());
+            setParameterForManufacturer(preparedStatement, mobile.getManufacturer());
+            preparedStatement.setInt(4, mobile.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,5 +73,20 @@ public class MobileDaoJdbcImpl implements MobileDao {
             return false;
         }
         return true;
+    }
+
+    private boolean manufacturerExists(Manufacturer manufacturer) {
+        if (manufacturerDao.getById(manufacturer.getId()) == null) {
+            return manufacturerDao.add(manufacturer);
+        }
+        return true;
+    }
+
+    private void setParameterForManufacturer(PreparedStatement preparedStatement, Manufacturer manufacturer) throws SQLException {
+        if (manufacturerExists(manufacturer)) {
+            preparedStatement.setInt(3, manufacturer.getId());
+        } else {
+            preparedStatement.setNull(3, Types.INTEGER);
+        }
     }
 }
