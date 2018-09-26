@@ -15,7 +15,8 @@ public class Delirium {
     private static Random random = new Random();
 
     public static void main(String[] args) {
-        genFiles("files", 20, 10000, 40000, 1, new String[]{"tttttttttttt", "aaaaaaaaaaaa", "lllllllllll", "uuuuuuuuuuu", "ddddddddddd", "mmmmmmmmmm"}, 3);
+//        genFiles("files", 20, 10000, 40000, 1, new String[]{"tttttttttttt", "aaaaaaaaaaaa", "lllllllllll", "uuuuuuuuuuu", "ddddddddddd", "mmmmmmmmmm"}, 3);
+        System.out.println(genWord(0));
     }
 
     public static void genFiles(String path, int n, int size1, int size2, int diff, String[] words, int probability) {
@@ -52,7 +53,7 @@ public class Delirium {
         }
     }
 
-    private static List<Integer> getListOfSizes(int n, int size1, int size2, int diff) {
+    public static List<Integer> getListOfSizes(int n, int size1, int size2, int diff) {
         List<Integer> list = new ArrayList<>(n);
         switch (diff) {
             case 1:
@@ -95,10 +96,13 @@ public class Delirium {
         return list;
     }
 
-    private static String genSentence(int n, String[] words, int probability) {
+    public static String genSentence(int n, String[] words, int probability) {
+        if (n == 0 || words.length == 0 || probability == 0) {
+            return "";
+        }
         String arrayWord = null;
         int arrayWordIndex = 0;
-        if (random.nextInt(probability) == 1) {
+        if (random.nextInt(probability) == 0) {
             arrayWord = words[random.nextInt(words.length)];
             arrayWordIndex = random.nextInt(n);
         }
