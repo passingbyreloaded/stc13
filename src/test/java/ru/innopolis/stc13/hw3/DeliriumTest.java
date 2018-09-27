@@ -2,15 +2,33 @@ package ru.innopolis.stc13.hw3;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeliriumTest {
+
+    @Test
+    void writeToFileNull() {
+        assertDoesNotThrow(() -> Delirium.writeToFile(null, "files", 111));
+    }
+
+    @Test
+    void writeToFileBadPath() {
+        assertThrows(IOException.class, () -> Delirium.writeToFile(new StringBuilder(), "22", 111));
+    }
 
     @Test
     void getListOfSizes() {
         int result = Delirium.getListOfSizes(15, 20, 40, 1).size();
         assertEquals(15, result);
+    }
+
+    @Test
+    void getListOfSizesNull() {
+        List<Integer> result = Delirium.getListOfSizes(15, 20, 40, 4);
+        assertNull(result);
     }
 
     @Test

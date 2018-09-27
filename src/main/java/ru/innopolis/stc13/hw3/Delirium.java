@@ -35,16 +35,24 @@ public class Delirium {
                     stringBuilder.append('\n');
                 }
             }
-            writeToFile(stringBuilder, path, i);
+            try {
+                writeToFile(stringBuilder, path, i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static void writeToFile(StringBuilder stringBuilder, String path, int i) {
+    public static void writeToFile(StringBuilder stringBuilder, String path, int i) throws IOException {
+        if (stringBuilder == null) {
+            return;
+        }
         File file = new File(path + "//file" + i);
         try {
             file.createNewFile();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            throw e;
         }
         try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
             outputStream.write(stringBuilder.toString().getBytes());
