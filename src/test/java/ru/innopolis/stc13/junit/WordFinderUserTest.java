@@ -21,6 +21,7 @@ public class WordFinderUserTest {
     private static final String FIRST_SENTENCE = "first sentence";
     private static final String SECOND_SENTENCE = "second sentence";
     private static final String RESOURCE = "file://any";
+    public static final String BAD_URL = "222";
     private WordFinderUser wordFinderUser;
     private WordFinder wordFinder = Mockito.mock(WordFinder.class);
 
@@ -79,6 +80,6 @@ public class WordFinderUserTest {
 
     @Test
     void doWorkBadURL() {
-        assertThrows(MalformedURLException.class, () -> this.wordFinderUser.doWord("222", EMPTY_STRING));
+        assertThrows(MalformedURLException.class, () -> this.wordFinderUser.doWord(BAD_URL, EMPTY_STRING));
     }
 }
