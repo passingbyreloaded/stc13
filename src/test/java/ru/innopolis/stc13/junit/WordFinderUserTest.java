@@ -17,11 +17,11 @@ import static org.mockito.Mockito.*;
 
 public class WordFinderUserTest {
 
-    public static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
     private static final String FIRST_SENTENCE = "first sentence";
     private static final String SECOND_SENTENCE = "second sentence";
     private static final String RESOURCE = "file://any";
-    public static final String BAD_URL = "222";
+    private static final String BAD_URL = "222";
     private WordFinderUser wordFinderUser;
     private WordFinder wordFinder = Mockito.mock(WordFinder.class);
 
@@ -74,8 +74,8 @@ public class WordFinderUserTest {
             e.printStackTrace();
         }
         verify(wordFinder).getSentences(captor.capture());
-        URL argumnet = captor.getValue();
-        assertEquals(RESOURCE, argumnet.toString());
+        URL argument = captor.getValue();
+        assertEquals(RESOURCE, argument.toString());
     }
 
     @Test
